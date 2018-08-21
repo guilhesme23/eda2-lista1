@@ -35,6 +35,13 @@ class Search(object):
         print('Resultado: ' + str(self.sequencial(entry)))
         end = time.process_time()
         print('Tempo gasto: ' + str(end - start))
+      elif opt == '2':
+        clear()
+        entry = int(input('Insira um valor: '))
+        start = time.process_time()
+        print('Resultado: ' + str(self.seq_transp(entry)))
+        end = time.process_time()
+        print('Tempo gasto: ' + str(end - start))
       elif opt == '0':
         back = True
         clear()
@@ -68,3 +75,23 @@ class Search(object):
       return -1
     else:
       return result[0]
+  
+  def seq_transp(self, value):
+    """
+      Implementa uma busca sequencial com método da transposição.
+      Cada elemento buscado é trocado com o elemento 5 posições anterior na lista.
+      Caso o valor não exista na lista, retorna -1.
+    """
+    result = -1
+    for index, val in enumerate(self.array):
+      if val == value:
+        if index > 5:
+          self.updated = True
+          self.array[index], self.array[index - 5] = self.array[index - 5], self.array[index]
+          index -= 5
+        result = index
+        break
+    
+    return result
+
+
