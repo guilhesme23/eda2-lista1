@@ -31,9 +31,9 @@ class Search(object):
       if opt == '1':
         clear()
         entry = int(input('Insira um valor: '))
-        start = time.time()
+        start = time.process_time()
         print('Resultado: ' + str(self.sequencial(entry)))
-        end = time.time()
+        end = time.process_time()
         print('Tempo gasto: ' + str(end - start))
       elif opt == '0':
         back = True
