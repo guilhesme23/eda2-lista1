@@ -71,6 +71,7 @@ class Search(object):
       Atualiza a lista.
     """
     self.updated = True
+    self.ordered = False
     self.array = new_list
 
   def sequencial(self, value):
@@ -108,8 +109,6 @@ class Search(object):
     """
       Função auxiliar que implementa o algoritmo da busca binária.
     """
-    l = [l]
-    print(l)
     if min == max:
       return -1
     mid = int(min + max / 2)
@@ -131,7 +130,7 @@ class Search(object):
       self.ordered = True
       self.array.sort()
     
-    return self._bin(value, 0, (len(self.array) - 1), [enumerate(self.array)])
+    return self._bin(value, 0, (len(self.array) - 1), list(enumerate(self.array)))
     
 
 
