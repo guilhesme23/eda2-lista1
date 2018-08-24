@@ -35,6 +35,11 @@ if __name__ == '__main__':
       entry = int(input('Insira o valor: '))
       lst.append(entry)
       searcher.change_list(lst)
+    elif option == '3':
+      clear()
+      entry = int(input('Insira o indice do elemento: '))
+      lst.pop(entry)
+      searcher.change_list(lst)
     elif option == '4':
       clear()
       searcher.print_all()
