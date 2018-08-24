@@ -116,15 +116,16 @@ class Search(object):
     """
       Função auxiliar que implementa o algoritmo da busca binária.
     """
-    if min == max:
-      return -1
-    mid = int(min + max / 2)
-    if l[mid][1] == value:
-      return l[mid][1]
-    elif l[mid][1] < value:
-      return self._bin(value, mid, max, l)
-    else:
-      return self._bin(value, min, mid, l)
+    if self.ordered:
+      if min == max:
+        return -1
+      mid = int(min + max / 2)
+      if l[mid][1] == value:
+        return l[mid][1]
+      elif l[mid][1] < value:
+        return self._bin(value, mid, max, l)
+      else:
+        return self._bin(value, min, mid, l)
 
   def bin_search(self, value):
     """
@@ -160,12 +161,14 @@ class Search(object):
     if self.updated:
       if not self.ordered:
         self.array.sort()
+        self.ordered = True
       self.gen_index_table(list(enumerate(self.array)))
     index_table = self.index_table
     index = 0
     for kindex in range(0,(len(index_table) - 1)):
       if (index_table[kindex][1] > value) and (kindex == 0) :
-        return -1
+        index = 0
+        break
       elif index_table[kindex][1] == value:
         return index_table[kindex][0]
       if index_table[kindex][1] > value:
