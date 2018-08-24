@@ -43,6 +43,13 @@ class Search(object):
         print('Resultado: ' + str(self.seq_transp(entry)))
         end = time.process_time()
         print('Tempo gasto: ' + str(end - start))
+      elif opt == '3':
+        clear()
+        entry = int(input('Insira um valor: '))
+        start = time.process_time()
+        print('Resultado: ' + str(self.indexed_search(entry)))
+        end = time.process_time()
+        print('Tempo gasto: ' + str(end - start))
       elif opt == '4':
         clear()
         entry = int(input('Insira um valor: '))
@@ -131,7 +138,46 @@ class Search(object):
       self.array.sort()
     
     return self._bin(value, 0, (len(self.array) - 1), list(enumerate(self.array)))
-    
+  
+  def gen_index_table(self, l):
+    """
+      Gera uma tabela de índices.
+    """
+    qtd = int(len(l) * 0.2)
+    self.index_table = []
+    step = int(len(l) / qtd)
+    for index in range(1,qtd):
+      index = index * step
+      self.index_table.append(l[index])
+
+
+  def indexed_search(self, value):
+    """
+      Implementa uma busca sequencial indexada.
+      Retorna o indice do valor procurado caso exista na lista.
+      Retorna -1 caso não exista.
+    """
+    if self.updated:
+      if not self.ordered:
+        self.array.sort()
+      self.gen_index_table(list(enumerate(self.array)))
+    index_table = self.index_table
+    index = 0
+    for kindex in range(0,(len(index_table) - 1)):
+      if (index_table[kindex][1] > value) and (kindex == 0) :
+        return -1
+      elif index_table[kindex][1] == value:
+        return index_table[kindex][0]
+      if index_table[kindex][1] > value:
+        index = index_table[kindex - 1][0]
+        break
+    array = list(enumerate(self.array))
+    for i in range(index,(len(array) - 1)):
+      if array[i][1] == value:
+        return array[i][0]
+      elif array[i][1] > value:
+        return -1
+
 
 
 
